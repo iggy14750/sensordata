@@ -24,3 +24,19 @@ What is important is performing four key functions on it as quickly as possible.
 
 # Approach
 
+We see here that there are 3 critical figures to optimize.
+These will be used to compare some alternative implemenations.
+
+1. Insert time. This will be done on a small embedded device, with minimal processing power.
+    Every additional microsecond it takes to add a new element to our data structure means that we can take few readings in the same amount of time, and therefore we are left with less precise data.
+    Our goal is O(1) or O(log n).
+2. Space. Again, because of the nature of the sensor, there are hard limits to the amount of available memory.
+    Goal is O(n), maybe upto O(n^2) if we can get a big impovement somewhere else.
+3. Processing time.
+    If we squint, we can see that the operations listed above are fundamentally similar:
+    finding contiguous regions of numbers which meet some numerical bound, either searching forward or backward.
+    Although I wasn't told this, I believe that this operation will occur either on a server, or at least a more powerful user device, and that it will be called many fewer times than insert.
+    Goal is to beat naive search (described later), which can be O(n^2).
+
+
+# Naive
