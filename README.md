@@ -69,6 +69,7 @@ This really is the benchmark against which we will measure other solutions.
 # Partial Min Matrix
 
 Perhaps if we knew the minimum element between indices `i` and `j`, then processing would be very quick.
+If the minimum element is greater that theshold, then all elements within some span will be as well.
 Say `data` took two indices and returned this information instead.
 
 ```
@@ -80,3 +81,9 @@ func searchContinuityAboveValue(data, indexBegin, indexEnd, threshold, winLength
     end
 end
 ```
+
+Now we're only considering linear work.
+A big upgrade, right?
+
+Well, in order to have this matrix, we need to use O(n<sup>2</sup>) space, and in order to populate it O(n<sup>2</sup>) time overall, and O(n) time on each element.
+Based on our earlier discussion, those figures are unacceptable.
