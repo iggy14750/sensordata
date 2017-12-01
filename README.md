@@ -58,9 +58,25 @@ func searchContinuityAboveValue(data, indexBegin, indexEnd, threshold, winLength
 end
 ```
 
-Nice and simple, but if we say that the difference between `indexBegin` and `indexEnd` is a constant multiple of n, and that `winLength` is a constant multiple of n (both of which seem like reasonable assumptions), then this is O(n^2).
+Nice and simple, but if we say that the difference between `indexBegin` and `indexEnd` is a constant multiple of n, and that `winLength` is a constant multiple of n (both of which seem like reasonable assumptions), then this is O(n<sup>2</sup>).
 Not very good.
 
 The benefit of this approach, however, is that on-device processing is as good as it can get.
 We have O(1) insert time, amortized if we're dealing with dynamic arrays like `std::vector`, and O(n) space.
 This really is the benchmark against which we will measure other solutions.
+
+
+# Partial Min Matrix
+
+Perhaps if we knew the minimum element between indices `i` and `j`, then processing would be very quick.
+Say `data` took two indices and returned this information instead.
+
+```
+func searchContinuityAboveValue(data, indexBegin, indexEnd, threshold, winLength):
+    for i = indexBegin to (indexEnd - winLength) do
+        if data[i, i + winLength] > threshold then
+            return i
+        end
+    end
+end
+```
