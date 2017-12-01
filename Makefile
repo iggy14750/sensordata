@@ -1,9 +1,11 @@
-MAIN_SRC := src/main
-TEST_SRC := src/test
-HEADERS  := -Iinclude
+SRC_DIR := src/main
+OBJ_DIR := bin
+SRC_FILES := $(wildcard $(SRC_DIR)/*.cpp)
+OBJ_FILES := $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(SRC_FILES))
+CPPFLAGS := -Iinclude
 
-default: src/main/main.cpp bin
-	gcc $(MAIN_SRC)/main.cpp $(HEADERS) -o bin/main
+main.exe: $(OBJ_FILES)
+	g++ -o $@ $^
 
-bin:
-	mkdir bin
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
+	g++ $(CPPFLAGS) -c -o $@ $<
