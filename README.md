@@ -31,13 +31,13 @@ These will be used to compare some alternative implemenations.
     Every additional microsecond it takes to add a new element to our data structure means that we can take few readings in the same amount of time, and therefore we are left with less precise data.
     Our goal is O(1) or O(log n).
 2. Space. Again, because of the nature of the sensor, there are hard limits to the amount of available memory.
-    Goal is O(n), maybe upto O(n^2) if we can get a big impovement somewhere else.
+    Goal is O(n), maybe upto O(n<sup>2</sup>) if we can get a big impovement somewhere else.
 3. Processing time.
     If we squint, we can see that the operations listed above are fundamentally similar:
     finding contiguous regions of numbers which meet some numerical bound, either searching forward or backward.
     For this reason, I will demonstrate an algorithm for the first without mentioning the others in this document.
     Although I wasn't told this, I believe that this operation will occur either on a server, or at least a more powerful user device, and that it will be called many fewer times than insert.
-    Goal is to beat naive search (described later), which approaches O(n^2).
+    Goal is to beat naive search (described later), which approaches O(n<sup>2</sup>).
 
 
 # Naive
@@ -47,7 +47,7 @@ The simplest search in this case follows.
 
 ```
 func searchContinuityAboveValue(data, indexBegin, indexEnd, threshold, winLength):
-    for i = indexBegin to (indexEnd-winLength) do
+    for i = indexBegin to (indexEnd - winLength) do
         for j = 0 to winLength do
             if data[i+j] < threshold then
                 continue to next i
