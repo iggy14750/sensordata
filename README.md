@@ -35,8 +35,32 @@ These will be used to compare some alternative implemenations.
 3. Processing time.
     If we squint, we can see that the operations listed above are fundamentally similar:
     finding contiguous regions of numbers which meet some numerical bound, either searching forward or backward.
+    For this reason, I will demonstrate an algorithm for the first without mentioning the others in this document.
     Although I wasn't told this, I believe that this operation will occur either on a server, or at least a more powerful user device, and that it will be called many fewer times than insert.
-    Goal is to beat naive search (described later), which can be O(n^2).
+    Goal is to beat naive search (described later), which approaches O(n^2).
 
 
 # Naive
+
+In this case, `data` is simply an array of the relevant values, ordered by index.
+The simplest search in this case follows.
+
+```
+func searchContinuityAboveValue(data, indexBegin, indexEnd, threshold, winLength):
+    for i = indexBegin to (indexEnd-winLength) do
+        for j = 0 to winLength do
+            if data[i+j] < threshold then
+                continue to next i
+            end
+        end
+        return i
+    end
+end
+```
+
+Nice and simple, but if we say that the difference between `indexBegin` and `indexEnd` is a constant multiple of n, and that `winLength` is a constant multiple of n (both of which seem like reasonable assumptions), then this is O(n^2).
+Not very good.
+
+The benefit of this approach, however, is that on-device processing is as good as it can get.
+We have O(1) insert time, amortized if we're dealing with dynamic arrays like `std::vector`, and O(n) space.
+This really is the benchmark against which we will measure other solutions.
