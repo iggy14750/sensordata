@@ -4,3 +4,5 @@ bin
 *.aux
 *.log
 *.exe
+.gradle/*
+gradle/*
