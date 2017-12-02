@@ -18,9 +18,10 @@ public class Search {
             rollingMin.add(data.get(indexBegin + i));
         }
 
-        for (int i = indexBegin; i < (indexEnd - winLength); i++) {
-            if (rollingMin.first() > threshold)
+        for (int i = indexBegin; i < (indexEnd - winLength + 2); i++) {
+            if (rollingMin.first() > threshold) {
                 return i;
+            }
             rollingMin.remove(data.get(i));
             rollingMin.add(data.get(i + winLength));
         }
