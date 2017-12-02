@@ -44,4 +44,15 @@ public class TestSensorData {
         assertEquals(testData[6], sd.getGz(6), epsilon);
     }
 
+    @Test
+    public void timestamp() {
+        int len = 16;
+        for (int i = 0; i < len; i++) {
+            sd.insert(2*i, 0,0,0,0,0,0);
+        }
+        assertEquals(len, sd.size());
+        assertEquals(4, sd.getTimestamp(2));
+        assertEquals(12, sd.getTimestamp(6));
+    }
+
 }

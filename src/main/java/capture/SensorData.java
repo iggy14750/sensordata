@@ -6,11 +6,13 @@ import java.util.List;
 
 public class SensorData {
 
+    private List<Integer> timestamp;
     private List<Double> gx;
     private List<Double> gy;
     private List<Double> gz;
 
     public SensorData() {
+        timestamp = new ArrayList<Integer>();
         gx = new ArrayList<Double>();
         gy = new ArrayList<Double>();
         gz = new ArrayList<Double>();
@@ -20,6 +22,7 @@ public class SensorData {
         double gx, double gy, double gz,
         double ax, double ay, double az
     ) {
+        this.timestamp.add(timestamp);
         this.gx.add(gx);
         this.gy.add(gy);
         this.gz.add(gz);
@@ -39,5 +42,9 @@ public class SensorData {
 
     public double getGz(int index) {
         return gz.get(index);
+    }
+
+    public int getTimestamp(int index) {
+        return timestamp.get(index);
     }
 }
