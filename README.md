@@ -174,10 +174,33 @@ But first, notice, that we are back to the original scheme of data aquisition, O
 
 We have some options for what kind of data structure backs `RollingMinimum`.
 
-1. Sorted array. O(n) `insert()`, O(1) `getMin()`, O(n) `delete()`.
-2. Unsorted array. O(1) `insert()`, O(n) `getMin()`, O(n) `delete()`.
-3. Min heap. O(log n) `insert()`, O(1) `getMin()`, O(log n) `delete()` (if we can use an indexed min heap; this isn't a general property of heaps).
-4. Binary search tree. O(log n) `insert()`, O(log n) `getMin()`, O(log n) `delete()`.
+<table>
+    <tr>
+        <th></th>
+        <th>Sorted Array</th>
+        <th>Unsorted Array</th>
+        <th>Min Heap</th>
+        <th>Binary Search Tree</th>
+    </tr><tr>
+        <td><code>insert()</code></td>
+        <td>O(n)</td>
+        <td>O(1)</td>
+        <td>O(log n)</td>
+        <td>O(log n)</td>
+    </tr><tr>
+        <td><code>getMin()</code></td>
+        <td>O(1)</td>
+        <td>O(n)</td>
+        <td>O(1)</td>
+        <td>O(log n)</td>
+    </tr><tr>
+        <td><code>delete()</code></td>
+        <td>O(n)</td>
+        <td>O(n)</td>
+        <td>O(log n)</td>
+        <td>O(log n)</td>
+    </tr>
+</table>
 
 We have at least the following tradeoffs when it comes to Min Heaps and Binary Search Trees.
 
