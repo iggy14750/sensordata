@@ -75,4 +75,14 @@ public class TestSensorData {
         assertNotEquals(testData[7], sd.getAy(8), epsilon);
     }
 
+    @Test
+    public void az() {
+        for (double x: testData) {
+            sd.insert(0,0,0,0,0,0,x);
+        }
+        assertEquals(9, sd.size());
+        assertEquals(testData[5], sd.getAz(5), epsilon);
+        assertNotEquals(testData[4], sd.getAz(8), epsilon);
+    }
+
 }

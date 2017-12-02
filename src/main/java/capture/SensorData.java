@@ -64,4 +64,8 @@ public class SensorData {
     public double getAy(int index) {
         return ay.get(index);
     }
+
+    public double getAz(int index) {
+        return az.get(index);
+    }
 }
