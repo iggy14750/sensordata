@@ -33,7 +33,7 @@ These will be used to compare some alternative implemenations.
     Every additional microsecond it takes to add a new element to our data structure means that we can take few readings in the same amount of time, and therefore we are left with less precise data.
     Our goal is O(1) or O(log n).
 2. Space. Again, because of the nature of the sensor, there are hard limits to the amount of available memory.
-    Goal is O(n), maybe upto O(n<sup>2</sup>) if we can get a big impovement somewhere else.
+    Goal is O(n), maybe upto O(n<sup>2</sup>) if we can get a big improvement somewhere else.
 3. Processing time.
     If we squint, we can see that the operations listed above are fundamentally similar:
     finding contiguous regions of numbers which meet some numerical bound, either searching forward or backward.
@@ -71,7 +71,7 @@ This really is the benchmark against which we will measure other solutions.
 ## Partial Min Matrix
 
 Perhaps if we knew the minimum element between indices `i` and `j`, then processing would be very quick.
-If the minimum element is greater that theshold, then all elements within some span will be as well.
+If the minimum element is greater than theshold, then all elements within some span will be as well.
 Say `data` took two indices and returned this information instead.
 
 ```
@@ -130,12 +130,12 @@ Well, the question is how to get these sorted indices.
 I can think of a few methods.
 
 1. Construct it entirely in processing. 
-    The general rule is O(n log n) to sort lists like. Constructing this seems no different.
+    The general rule is O(n log n) to sort lists. Constructing this seems no different.
 2. Construct sorted list during capture.
     Then we're looking at O(n) capture to insert each element into the sorted array. No good.
 3. Use a binary search tree. 
     Insert (during capture) is O(log n), and finding an arbitrary element (during processing) is as well.
-    Then the processing shown above if O(n log n).
+    Then the processing shown above is O(n log n).
 4. Use a max heap.
     Basically the same as a binary search tree.
 
@@ -157,7 +157,7 @@ Then suppose `data` is a simple array of measured data again.
 
 ```
 func searchContinuityAboveValue(data, indexBegin, indexEnd, threshold, winLength):
-    let rm = RollingMinimim()
+    let rm = RollingMinimum()
     add the first winLength elements to rm.
 
     for i = indexBegin to (indexEnd - winLength) do
@@ -172,7 +172,7 @@ end
 ```
 
 So processing time depends upon the runtime of those operations of `RollingMinimum`.
-But first, notice, that we are back to the original scheme of data aquisition, O(1) insert, and O(n) space.
+But first, notice, that we are back to the original scheme of data acquisition, O(1) insert, and O(n) space.
 
 We have some options for what kind of data structure backs `RollingMinimum`.
 
