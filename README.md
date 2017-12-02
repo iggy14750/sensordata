@@ -139,3 +139,60 @@ I can think of a few methods.
 
 The biggest downsides of 2, 3, and 4 is that, while asymptotic space remains linear, they each require about 3x the space of only keeping the data itself around during capture, which may still be too much for our device.
 So, with all considered, the best we can do 1: O(1) insert, O(n) space, O(n log n) processing. Not bad over all.
+
+
+# Rolling Minimum
+
+Inspired by the [rolling hash](https://en.wikipedia.org/wiki/Rolling_hash) for substring searching, 
+let us construct a rolling minimum of `winLength` size windows in `data`.
+This will need three operations.
+
+1. `insert(elem)` will add `elem` to the collection.
+2. `getMin()` will return the minimum of the collection.
+3. `delete(elem)` will remove `elem` from the collection.
+
+Then suppose `data` is a simple array of measured data again.
+
+```
+func searchContinuityAboveValue(data, indexBegin, indexEnd, threshold, winLength):
+    let rm = RollingMinimim()
+    add the first winLength elements to rm.
+
+    for i = indexBegin to (indexEnd - winLength) do
+        if rm.getMin() > threshold then
+            return i
+        end
+        rm.insert(data[i + winLength])
+        rm.delete(data[i])
+    end
+    return -1 // no such runs exist
+end
+```
+
+So processing time depends upon the runtime of those operations of `RollingMinimum`.
+But first, notice, that we are back to the original scheme of data aquisition, O(1) insert, and O(n) space.
+
+We have some options for what kind of data structure backs `RollingMinimum`.
+
+1. Sorted array. O(n) `insert()`, O(1) `getMin()`, O(n) `delete()`.
+2. Unsorted array. O(1) `insert()`, O(n) `getMin()`, O(n) `delete()`.
+3. Min heap. O(log n) `insert()`, O(1) `getMin()`, O(log n) `delete()` (if we can use an indexed min heap; this isn't a general property of heaps).
+4. Binary search tree. O(log n) `insert()`, O(log n) `getMin()`, O(log n) `delete()`.
+
+We have at least the following tradeoffs when it comes to Min Heaps and Binary Search Trees.
+
+<table>
+    <tr>
+        <th>Min Heap</th>
+        <th>Binary Search Tree</th>
+    </tr><tr>
+        <td>Faster getMin()</td>
+        <td>Doesn't affect overall performance</td>
+    </tr><tr>
+        <td>Arbitrary delete not always supported</td>
+        <td>All operations always supported</td>
+    </tr><tr>
+        <td>Better cache coherency</td>
+        <td>Only need one for max and min</td>
+    </tr>
+</table>
