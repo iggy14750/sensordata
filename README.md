@@ -1,4 +1,6 @@
-# Problem Statement
+# Sensor Data
+
+## Problem Statement
 
 This problem involves designing a data structure and accompanying algorithms to read and process sensor data.
 This data will be given in the form of 7-column data points, one column at a time.
@@ -22,7 +24,7 @@ What is important is performing four key functions on it as quickly as possible.
 4. `searchMultiContinuityWithinRange(? data, int indexBegin, int indexEnd, double thresholdLo, double thresholdHi, int winLength)`
     Finds the begining and ending index of all regions in `data` of length at least `winLength` and where all elements are between `thresholdLo` and `thresholdHi`.
 
-# Approach
+## Approach
 
 We see here that there are 3 critical figures to optimize.
 These will be used to compare some alternative implemenations.
@@ -62,11 +64,11 @@ Nice and simple, but if we say that the difference between `indexBegin` and `ind
 Not very good.
 
 The benefit of this approach, however, is that on-device processing is as good as it can get.
-We have O(1) insert time, amortized if we're dealing with dynamic arrays like `std::vector`, and O(n) space.
+We have O(1) insert time, amortized if we're dealing with dynamic arrays like `java.util.ArrayList`, and O(n) space.
 This really is the benchmark against which we will measure other solutions.
 
 
-# Partial Min Matrix
+## Partial Min Matrix
 
 Perhaps if we knew the minimum element between indices `i` and `j`, then processing would be very quick.
 If the minimum element is greater that theshold, then all elements within some span will be as well.
@@ -89,7 +91,7 @@ Well, in order to have this matrix, we need to use O(n<sup>2</sup>) space, and i
 Based on our earlier discussion, those figures are unacceptable.
 
 
-# Sorted Data
+## Sorted Data
 
 Alright, but what if the data came to us sorted, maximum to minimum? 
 Or more specifically, the data is in order, 
@@ -141,7 +143,7 @@ The biggest downsides of 2, 3, and 4 is that, while asymptotic space remains lin
 So, with all considered, the best we can do 1: O(1) insert, O(n) space, O(n log n) processing. Not bad over all.
 
 
-# Rolling Minimum
+## Rolling Minimum
 
 Inspired by the [rolling hash](https://en.wikipedia.org/wiki/Rolling_hash) for substring searching, 
 let us construct a rolling minimum of `winLength` size windows in `data`.
@@ -222,7 +224,7 @@ Both give us O(n log n) processing time, but we have a few tradeoffs to consider
 </table>
 
 
-# Conclusion
+## Conclusion
 
 For these reasons, I believe the overall simplest without giving any performance is the Binary Search Tree backed Rolling Minumum.
 This means the data structure used for collecting data will simply be a few arrrays.
