@@ -7,6 +7,7 @@ public class App {
     }
 
     public static void main(String[] args) {
+        System.out.println("Args length = " + args.length);
         System.out.println(new App().getGreeting());
     }
 }
