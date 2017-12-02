@@ -78,4 +78,12 @@ public class TestSearch {
         });
         assertEquals(-1, Search.continuityAboveValue(testData, 2, 6, 10, 3));
     }
+
+    @Test
+    public void aboveValRegionAfterIndexEnd() {
+        initList(new double[] {
+            0, 20, 20, 20, 0, 0, 0, 0
+        });
+        assertEquals(-1, Search.continuityAboveValue(testData, 0, 2, 10, 3));
+    }
 }
