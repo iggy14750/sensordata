@@ -42,7 +42,7 @@ These will be used to compare some alternative implemenations.
     Goal is to beat naive search (described later), which approaches O(n<sup>2</sup>).
 
 
-# Naive
+## Naive
 
 In this case, `data` is simply an array of the relevant values, ordered by index.
 The simplest search in this case follows.
