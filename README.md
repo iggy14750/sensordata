@@ -202,7 +202,8 @@ We have some options for what kind of data structure backs `RollingMinimum`.
     </tr>
 </table>
 
-We have at least the following tradeoffs when it comes to Min Heaps and Binary Search Trees.
+It seems then that we want to choose between either a Min Heap or Binary Search Tree.
+Both give us O(n log n) processing time, but we have a few tradeoffs to consider.
 
 <table>
     <tr>
@@ -219,3 +220,12 @@ We have at least the following tradeoffs when it comes to Min Heaps and Binary S
         <td>Only need one for max and min</td>
     </tr>
 </table>
+
+
+# Conclusion
+
+For these reasons, I believe the overall simplest without giving any performance is the Binary Search Tree backed Rolling Minumum.
+This means the data structure used for collecting data will simply be a few arrrays.
+While this is the same as naive, it is the best we can get for data collection on the embedded sensor, which is where every byte and cycle matter.
+Moreover, we have still dramatically reduced the processing time over naive.
+So, in all, I belive this is the best tradoff given the application.
