@@ -20,7 +20,8 @@ public class TestSensorData {
             sd.insert(0,x,0,0,0,0,0);
         }
         assertEquals(9, sd.size());
-        assertArrayEquals(testData, Arrays.copyOf(sd.getGx(), sd.size()), epsilon);
+        assertEquals(testData[3], sd.getGx(3), epsilon);
+        assertEquals(testData[8], sd.getGx(8), epsilon);
     }
 
     @Test
@@ -29,7 +30,18 @@ public class TestSensorData {
             sd.insert(0,0,x,0,0,0,0);
         }
         assertEquals(9, sd.size());
-        assertArrayEquals(testData, Arrays.copyOf(sd.getGy(), sd.size()), epsilon);
+        assertEquals(testData[2], sd.getGy(2), epsilon);
+        assertEquals(testData[8], sd.getGy(8), epsilon);
+    }
+
+    @Test
+    public void gz() {
+        for (double x: testData) {
+            sd.insert(0,0,0,x,0,0,0);
+        }
+        assertEquals(9, sd.size());
+        assertEquals(testData[2], sd.getGz(2), epsilon);
+        assertEquals(testData[8], sd.getGz(8), epsilon);
     }
 
 }
