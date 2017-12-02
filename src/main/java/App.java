@@ -4,7 +4,6 @@
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import processing.Search;
 
 public class App {
     public String getGreeting() {
