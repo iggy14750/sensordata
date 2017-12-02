@@ -40,8 +40,8 @@ public class TestSensorData {
             sd.insert(0,0,0,x,0,0,0);
         }
         assertEquals(9, sd.size());
-        assertEquals(testData[2], sd.getGz(2), epsilon);
-        assertEquals(testData[8], sd.getGz(8), epsilon);
+        assertNotEquals(testData[0], sd.getGz(1), epsilon);
+        assertEquals(testData[6], sd.getGz(6), epsilon);
     }
 
 }
