@@ -30,6 +30,12 @@ dependencies {
 // Define the main class for the application
 mainClassName = 'App'
 
+test {
+    testLogging {
+        exceptionFormat = 'full'
+    }
+}
+
 run {
     args 'one', 'two', 'three'
 }
