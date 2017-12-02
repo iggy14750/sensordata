@@ -60,4 +60,8 @@ public class SensorData {
     public double getAx(int index) {
         return ax.get(index);
     }
+
+    public double getAy(int index) {
+        return ay.get(index);
+    }
 }
