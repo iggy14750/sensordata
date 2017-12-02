@@ -87,3 +87,55 @@ A big upgrade, right?
 
 Well, in order to have this matrix, we need to use O(n<sup>2</sup>) space, and in order to populate it O(n<sup>2</sup>) time overall, and O(n) time on each element.
 Based on our earlier discussion, those figures are unacceptable.
+
+
+# Sorted Data
+
+Alright, but what if the data came to us sorted, maximum to minimum? 
+Or more specifically, the data is in order, 
+but we have a list of indices which refer to elements largest to smallest?
+Imagine we had some mystery algorithm which detects when the addition of an index creates a run of the size we're looking for, in constant time per element, no less.
+I suspect we could use a method somewhat similar to [Disjoint Set (Union-Find)](https://en.wikipedia.org/wiki/Disjoint-set_data_structure) to do this, but for the sake of brevity, we'll call it magic.
+
+Let `magic(index)` be a function which
+
+* Returns -1 if the addition of `index` does not create a run of length `winLength`.
+* Returns the earliest index of such a run.
+
+Then we can do the following.
+
+```
+func searchContinuityAboveValue(data, indexBegin, indexEnd, threshold, winLength):
+    int best = infinity
+    for i in data.maxElements do
+        if i < indexBegin or i > indexEnd then
+            continue to next i
+        end
+        if data[i] < threshold then
+            return best
+        end
+        k = magic(i)
+        if k != -1 and k < best then
+            best = k
+        end
+    end
+    return best
+end
+```
+
+Linear time for processing, right?
+Well, the question is how to get these sorted indices.
+I can think of a few methods.
+
+1. Construct it entirely in processing. 
+    The general rule is O(n log n) to sort lists like. Constructing this seems no different.
+2. Construct sorted list during capture.
+    Then we're looking at O(n) capture to insert each element into the sorted array. No good.
+3. Use a binary search tree. 
+    Insert (during capture) is O(log n), and finding an arbitrary element (during processing) is as well.
+    Then the processing shown above if O(n log n).
+4. Use a max heap.
+    Basically the same as a binary search tree.
+
+The biggest downsides of 2, 3, and 4 is that, while asymptotic space remains linear, they each require about 3x the space of only keeping the data itself around during capture, which may still be too much for our device.
+So, with all considered, the best we can do 1: O(1) insert, O(n) space, O(n log n) processing. Not bad over all.
