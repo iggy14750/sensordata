@@ -10,12 +10,18 @@ public class SensorData {
     private List<Double> gx;
     private List<Double> gy;
     private List<Double> gz;
+    private List<Double> ax;
+    private List<Double> ay;
+    private List<Double> az;
 
     public SensorData() {
         timestamp = new ArrayList<Integer>();
         gx = new ArrayList<Double>();
         gy = new ArrayList<Double>();
         gz = new ArrayList<Double>();
+        ax = new ArrayList<Double>();
+        ay = new ArrayList<Double>();
+        az = new ArrayList<Double>();
     }
 
     public void insert(int timestamp, 
@@ -26,10 +32,17 @@ public class SensorData {
         this.gx.add(gx);
         this.gy.add(gy);
         this.gz.add(gz);
+        this.ax.add(ax);
+        this.ay.add(ay);
+        this.az.add(az);
     }
 
     public int size() {
         return gx.size();
+    }
+
+    public int getTimestamp(int index) {
+        return timestamp.get(index);
     }
 
     public double getGx(int index) {
@@ -44,7 +57,7 @@ public class SensorData {
         return gz.get(index);
     }
 
-    public int getTimestamp(int index) {
-        return timestamp.get(index);
+    public double getAx(int index) {
+        return ax.get(index);
     }
 }
