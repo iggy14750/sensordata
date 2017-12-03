@@ -174,4 +174,24 @@ public class TestSearch {
             testData, 0, 3, 20, 30, 3
         ));
     }
+
+    @Test
+    public void backWithinRangeWindowSmallerThanExpected() {
+        initList(new double[] {
+            0, 100, 23, 21, 32, -22, 101
+        });
+        assertEquals(-1, Search.backSearchContinuityWithinRange(
+            testData, 0, 6, 20, 30, 3
+        ));
+    }
+
+    @Test
+    public void backWithinRangeFindsLast() {
+        initList(new double[] {
+            0, 100, 23, 21, 22, -22, 101, 24, 25, 26, 0.2, 102
+        });
+        assertEquals(7, Search.backSearchContinuityWithinRange(
+            testData, 0, 11, 20, 30, 3
+        ));
+    }
 }
