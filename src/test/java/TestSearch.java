@@ -29,6 +29,9 @@ public class TestSearch {
         assertEquals(2313, (int) ts.last());
     }
 
+
+    /* SEARCH CONTINUITY ABOVE VALUE */
+
     @Test
     public void aboveVal() {
         initList(new double[] {
@@ -107,5 +110,68 @@ public class TestSearch {
             1, 2, 3, 4, 5, 21, 22, 23,
         });
         assertEquals(5, Search.continuityAboveValue(testData, 0, 7, 10, 2));
+    }
+
+    @Test
+    public void aboveValFindsFirst() {
+        initList(new double[] {
+            0.1, 0.2, 101, 102, 103, 0.3, 0.4, 0.5, 104, 105, 106, 107, 0.6, 0.7
+        });
+        assertEquals(2, Search.continuityAboveValue(
+            testData, 0, 14, 50, 3
+        ));
+    }
+
+
+    /* BACK-SEARCH CONTINUITY WITHIN RANGE */
+
+    @Test
+    public void backWithinRangeSimple() {
+        initList(new double[] {
+            0, 100, 23, 21, 22, -22, 101
+        });
+        assertEquals(2, Search.backSearchContinuityWithinRange(
+            testData, 0, 6, 20, 30, 3
+        ));
+    }
+
+    @Test
+    public void backWithinRangeWindowOnIndexBegin() {
+        initList(new double[] {
+            0, 100, 23, 21, 22, -22, 101
+        });
+        assertEquals(2, Search.backSearchContinuityWithinRange(
+            testData, 2, 6, 20, 30, 3
+        ));
+    }
+
+    @Test
+    public void backWithinRangeWindowOnIndexEnd() {
+        initList(new double[] {
+            0, 100, 23, 21, 22, -22, 101
+        });
+        assertEquals(2, Search.backSearchContinuityWithinRange(
+            testData, 0, 4, 20, 30, 3
+        ));
+    }
+
+    @Test
+    public void backWithinRangeWindowBeforeIndices() {
+        initList(new double[] {
+            0, 100, 23, 21, 22, -22, 101
+        });
+        assertEquals(-1, Search.backSearchContinuityWithinRange(
+            testData, 3, 6, 20, 30, 3
+        ));
+    }
+
+    @Test
+    public void backWithinRangeWindowAfterIndices() {
+        initList(new double[] {
+            0, 100, 23, 21, 22, -22, 101
+        });
+        assertEquals(-1, Search.backSearchContinuityWithinRange(
+            testData, 0, 3, 20, 30, 3
+        ));
     }
 }
