@@ -46,7 +46,6 @@ public class Search {
         TreeSet<Double> rolling = new TreeSet<Double>();
         for (int i = 0; i < winLength; i++) {
             rolling.add(data.get(indexEnd - i));
-            System.out.println("Adding element " + i + " to the tree set");
         }
 
         for (int i = (indexEnd - winLength + 1); i > indexBegin; i--) {
