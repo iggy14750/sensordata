@@ -18,6 +18,14 @@ public class TestSearch {
         }
     }
 
+    private List<Double> makeList(double[] arr) {
+        List<Double> list = new ArrayList<Double>();
+        for (double x: arr) {
+            list.add(x);
+        }
+        return list;
+    }
+
     @Test
     public void checkTreeSet() {
         TreeSet<Integer> ts = new TreeSet<Integer>();
@@ -192,6 +200,19 @@ public class TestSearch {
         });
         assertEquals(7, Search.backSearchContinuityWithinRange(
             testData, 0, 11, 20, 30, 3
+        ));
+    }
+
+
+    /* SEARCH CONTINUITY ABOVE VALUE TWO SIGNALS */
+
+    @Test
+    public void twoSigSimple() {
+        List<Double> one = makeList(new double[] {
+            0.1, 0.2, 23, 21, 22, 0.3, 0.4
+        });
+        assertEquals(2, Search.searchContinuityAboveValueTwoSignals(
+            one, one, 0, 6, 20, 20, 3
         ));
     }
 }

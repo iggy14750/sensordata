@@ -59,4 +59,27 @@ public class Search {
 
         return -1;
     }
+
+    public static int searchContinuityAboveValueTwoSignals(
+        List<Double> data1,
+        List<Double> data2,
+        int indexBegin,
+        int indexEnd,
+        double threshold1,
+        double threshold2,
+        int winLength
+    ) {
+        do {
+            int res1 = searchContinuityAboveValue(
+                data1, indexBegin, indexEnd, threshold1, winLength);
+            int res2 = searchContinuityAboveValue(
+                data2, indexBegin, indexEnd, threshold2, winLength);
+            
+            if (res1 == -1 || res2 == -1) return -1;
+            if (res1 == res2) return res1;
+
+            indexBegin = Math.min(res1, res2);
+
+        } while (true);
+    }
 }
