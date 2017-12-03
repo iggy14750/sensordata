@@ -51,6 +51,13 @@ public class TestSearch {
     }
 
     @Test
+    public void aboveValIndicesSmallerThanWinLength() {
+        assertEquals(-1, Search.searchContinuityAboveValue(
+            null, 2, 3, 20.0, 3
+        ));
+    }
+
+    @Test
     public void aboveValAtBeginIndex() {
         initList(new double[] {
             0, 20, 20, 20, 0, 0, 0, 0

@@ -11,6 +11,8 @@ public class Search {
         double threshold,
         int winLength
     ) {
+        if (indexEnd - indexBegin < winLength - 1) return -1;
+
         TreeSet<Double> rollingMin = new TreeSet<Double>();
         for (int i = 0; i < winLength; i++) {
             rollingMin.add(data.get(indexBegin + i));
@@ -39,6 +41,8 @@ public class Search {
         double thresholdHi,
         int winLength
     ) {
+        if (indexEnd - indexBegin < winLength - 1) return -1;
+
         TreeSet<Double> rolling = new TreeSet<Double>();
         for (int i = 0; i < winLength; i++) {
             rolling.add(data.get(indexEnd - i));
