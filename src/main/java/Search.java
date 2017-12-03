@@ -4,7 +4,7 @@ import java.util.TreeSet;
 
 public class Search {
 
-    public static int continuityAboveValue(
+    public static int searchContinuityAboveValue(
         List<Double> data,
         int indexBegin,
         int indexEnd,

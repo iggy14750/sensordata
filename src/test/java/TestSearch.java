@@ -37,7 +37,7 @@ public class TestSearch {
         initList(new double[] {
             42.0, 2.23, 234.23, 23.32, 23.42, -63.2, 49.01, -57, 23
         });
-        assertEquals(2, Search.continuityAboveValue(
+        assertEquals(2, Search.searchContinuityAboveValue(
             testData, 0, 8, 20.0, 3
         ));
     }
@@ -47,7 +47,7 @@ public class TestSearch {
         initList(new double[] {
             0, 20, 20, 20, 0, 0, 0, 0
         });
-        assertEquals(1, Search.continuityAboveValue(testData, 1, 5, 10, 3));
+        assertEquals(1, Search.searchContinuityAboveValue(testData, 1, 5, 10, 3));
     }
 
     @Test
@@ -55,7 +55,7 @@ public class TestSearch {
         initList(new double[] {
             0, 20, 20, 20, 0, 0, 0, 0
         });
-        assertEquals(1, Search.continuityAboveValue(testData, 0, 3, 10, 3));
+        assertEquals(1, Search.searchContinuityAboveValue(testData, 0, 3, 10, 3));
     }
 
     @Test
@@ -63,13 +63,13 @@ public class TestSearch {
         initList(new double[] {
             0, 20, 20, 20, 0, 0, 0, 0
         });
-        assertEquals(1, Search.continuityAboveValue(testData, 1, 3, 10, 3));
+        assertEquals(1, Search.searchContinuityAboveValue(testData, 1, 3, 10, 3));
     }
 
     @Test
     public void myLittleCase() {
         initList(new double[] {0,2,3,5,0});
-        assertEquals(1, Search.continuityAboveValue(testData, 1, 3, 1, 3));
+        assertEquals(1, Search.searchContinuityAboveValue(testData, 1, 3, 1, 3));
     }
 
     @Test
@@ -77,7 +77,7 @@ public class TestSearch {
         initList(new double[] {
             0, 20, 20, 20, 0, 0, 0, 0
         });
-        assertEquals(-1, Search.continuityAboveValue(testData, 2, 6, 10, 3));
+        assertEquals(-1, Search.searchContinuityAboveValue(testData, 2, 6, 10, 3));
     }
 
     @Test
@@ -85,7 +85,7 @@ public class TestSearch {
         initList(new double[] {
             0, 20, 20, 20, 0, 0, 0, 0
         });
-        assertEquals(-1, Search.continuityAboveValue(testData, 0, 2, 10, 3));
+        assertEquals(-1, Search.searchContinuityAboveValue(testData, 0, 2, 10, 3));
     }
 
     @Test
@@ -93,7 +93,7 @@ public class TestSearch {
         initList(new double[] {
             0, 20, 20, 20, 0, 0, 0, 0
         });
-        assertEquals(-1, Search.continuityAboveValue(testData, 0, 7, 10, 4));
+        assertEquals(-1, Search.searchContinuityAboveValue(testData, 0, 7, 10, 4));
     }
 
     @Test
@@ -101,7 +101,7 @@ public class TestSearch {
         initList(new double[] {
             1, 2, 3, 21, 22, 23, 4, 5, // difficult with non-distinct data.
         });
-        assertEquals(3, Search.continuityAboveValue(testData, 0, 7, 10, 2));
+        assertEquals(3, Search.searchContinuityAboveValue(testData, 0, 7, 10, 2));
     }
 
     @Test
@@ -109,7 +109,7 @@ public class TestSearch {
         initList(new double[] {
             1, 2, 3, 4, 5, 21, 22, 23,
         });
-        assertEquals(5, Search.continuityAboveValue(testData, 0, 7, 10, 2));
+        assertEquals(5, Search.searchContinuityAboveValue(testData, 0, 7, 10, 2));
     }
 
     @Test
@@ -117,7 +117,7 @@ public class TestSearch {
         initList(new double[] {
             0.1, 0.2, 101, 102, 103, 0.3, 0.4, 0.5, 104, 105, 106, 107, 0.6, 0.7
         });
-        assertEquals(2, Search.continuityAboveValue(
+        assertEquals(2, Search.searchContinuityAboveValue(
             testData, 0, 14, 50, 3
         ));
     }

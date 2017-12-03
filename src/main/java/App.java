@@ -11,7 +11,7 @@ public class App {
     }
 
     public static void main(String[] args) {
-        int res = Search.continuityAboveValue(
+        int res = Search.searchContinuityAboveValue(
             Arrays.asList(new Double(0), new Double(3), new Double(4), new Double(5), new Double(0)),
             1, // indexBegin
             3, // indexEnd
