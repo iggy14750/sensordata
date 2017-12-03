@@ -78,7 +78,7 @@ public class Search {
             if (res1 == -1 || res2 == -1) return -1;
             if (res1 == res2) return res1;
 
-            indexBegin = Math.min(res1, res2);
+            indexBegin = Math.max(res1, res2);
 
         } while (true);
     }
