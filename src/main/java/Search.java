@@ -16,13 +16,15 @@ public class Search {
             rollingMin.add(data.get(indexBegin + i));
         }
 
-        for (int i = indexBegin; i < (indexEnd - winLength + 2); i++) {
+        for (int i = indexBegin; i < (indexEnd - winLength + 1); i++) {
             if (rollingMin.first() > threshold) {
                 return i;
             }
             rollingMin.remove(data.get(i));
             rollingMin.add(data.get(i + winLength));
         }
+        // Special case for when the window is at the end of given indices
+        if (rollingMin.first() > threshold) return (indexEnd - winLength + 1);
 
         return -1; // No such continiguous region exists
     }

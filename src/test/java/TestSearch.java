@@ -84,4 +84,28 @@ public class TestSearch {
         });
         assertEquals(-1, Search.continuityAboveValue(testData, 0, 2, 10, 3));
     }
+
+    @Test
+    public void winLengthTooLong() {
+        initList(new double[] {
+            0, 20, 20, 20, 0, 0, 0, 0
+        });
+        assertEquals(-1, Search.continuityAboveValue(testData, 0, 7, 10, 4));
+    }
+
+    @Test
+    public void winLengthShorterThanActualRegion() {
+        initList(new double[] {
+            1, 2, 3, 21, 22, 23, 4, 5, // difficult with non-distinct data.
+        });
+        assertEquals(3, Search.continuityAboveValue(testData, 0, 7, 10, 2));
+    }
+
+    @Test
+    public void windowAtEndOfRegion() {
+        initList(new double[] {
+            1, 2, 3, 4, 5, 21, 22, 23,
+        });
+        assertEquals(5, Search.continuityAboveValue(testData, 0, 7, 10, 2));
+    }
 }
