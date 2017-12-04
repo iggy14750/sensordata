@@ -41,14 +41,14 @@ public class Search {
         double thresholdHi,
         int winLength
     ) {
-        if (indexEnd - indexBegin < winLength - 1) return -1;
+        if (indexBegin - indexEnd < winLength - 1) return -1;
 
         TreeSet<Double> rolling = new TreeSet<Double>();
         for (int i = 0; i < winLength; i++) {
-            rolling.add(data.get(indexEnd - i));
+            rolling.add(data.get(indexBegin - i));
         }
 
-        for (int i = (indexEnd - winLength + 1); i > indexBegin; i--) {
+        for (int i = (indexBegin - winLength + 1); i > indexEnd; i--) {
             if (rolling.first() > thresholdLo && rolling.last() < thresholdHi) {
                 return i;
             }
@@ -57,7 +57,7 @@ public class Search {
         }
 
         if (rolling.first() > thresholdLo && rolling.last() < thresholdHi) {
-            return indexBegin;
+            return indexEnd;
         }
 
         return -1;
