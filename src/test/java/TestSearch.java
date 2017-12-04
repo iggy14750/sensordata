@@ -233,11 +233,47 @@ public class TestSearch {
     }
 
     @Test
+    public void twoSigFirstWindow() {
+        assertEquals(1, Search.searchContinuityAboveValueTwoSignals(
+            makeList(new double[] {1, 101, 102, 103, 2, 3, 104, 105, 106, 4, 5}),
+            makeList(new double[] {1, 101, 102, 103, 2, 3, 104, 105, 106, 4, 5}),
+            0, 10, 100, 100, 3
+        ));
+    }
+
+    @Test
     public void twoSigNeverLineUp() {
         assertEquals(-1, Search.searchContinuityAboveValueTwoSignals(
             makeList(new double[] {1, 101, 102, 103,   2, 3, 104, 105, 106,   4, 5}),
             makeList(new double[] {1,   2, 101, 102, 103, 3,   4, 104, 105, 106, 4}),
             0, 10, 100, 100, 3
+        ));
+    }
+
+    @Test
+    public void twoSigNoWindowInOne() {
+        assertEquals(-1, Search.searchContinuityAboveValueTwoSignals(
+            makeList(new double[] {1, 101, 102, 103,   2, 3, 104, 105, 106, 4, 5}),
+            makeList(new double[] {1,   2, 101,   6, 103, 3, 104, 105,   7, 4, 5}),
+            0, 10, 100, 100, 3
+        ));
+    }
+
+    @Test
+    public void twoSigNoWindowInEither() {
+        assertEquals(-1, Search.searchContinuityAboveValueTwoSignals(
+            makeList(new double[] {1, 101,   6, 103,   2, 3, 104, 105, 7, 4, 5}),
+            makeList(new double[] {1,   2, 101,   6, 103, 3, 104, 105, 7, 4, 5}),
+            0, 10, 100, 100, 3
+        ));
+    }
+
+    @Test
+    public void twoSigDifferentTheshold() {
+        assertEquals(6, Search.searchContinuityAboveValueTwoSignals(
+            makeList(new double[] {1, 101, 102, 103,  2, 3, 104, 105, 106, 4, 5}),
+            makeList(new double[] {1,   2,  21,  22, 23, 3,  24,  25,  26, 4, 5}),
+            0, 10, 100, 20, 3
         ));
     }
 }
