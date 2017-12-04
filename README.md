@@ -1,5 +1,12 @@
 # Sensor Data
 
+## Users Guide
+
+Check out `src/main/java/App.java` to change what operation to perform on your data.
+The file name of the data needs to be passed in as a command-line argument.
+There is an example of how to use my code to process your own data, 
+but to use it, one need only edit a few lines.
+
 ## Problem Statement
 
 This problem involves designing a data structure and accompanying algorithms to read and process sensor data.

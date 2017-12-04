@@ -13,10 +13,11 @@ public class App {
         }
         SensorData data = readIn(args[0]);
 
-        /*
+        /**
          * Here is an example of how to call multi-continuity within range.
          * Returns an array of a custom type.
-         * Just edit the lines listed 'Edit Me'
+         * Just edit the lines listed 'Edit Me'.
+         * Check out the code below for an example of how to use other methods.
          */
         Pair[] bounds = Search.searchMultiContinuityWithinRange(
             data.getAz(), 0, 1200, 10, 100, 10 // Edit me to change arguments to method.
@@ -29,6 +30,21 @@ public class App {
             for (int i = begin; i <= end; i++) {
                 System.out.println(data.getAz(i)); // Edit me to change which column is printed.
             }
+        }
+
+
+        /**
+         * Here is an example of how to call and use the other 3 methods.
+         * (This is necessary because searchMultiContinuityWithinRange has a different return type.)
+         */
+        List<Double> column = data.getGx(); // Change which column or signal is used here.
+        int winLength = 10; // change winlenth here, of course.
+        int index = Search.backSearchContinuityWithinRange( // change which method is called here.
+            column, 1000, 500, 5, 20, winLength
+        );
+        System.out.printf("=== New Section (%d, %d) ===\n", index, index + winLength - 1);
+        for (int i = index; i < (index + winLength); i++) {
+            System.out.println(column.get(i));
         }
     }
 
