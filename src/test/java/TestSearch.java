@@ -11,6 +11,9 @@ public class TestSearch {
 
     private List<Double> testData = new ArrayList<Double>();
 
+
+    /* HELPER METHODS */
+
     private void initList(double[] arr) {
         testData.clear();
         for (double x: arr) {
@@ -24,6 +27,14 @@ public class TestSearch {
             list.add(x);
         }
         return list;
+    }
+
+    private Pair<Integer, Integer>[] zipTogether(int[] a1, int[] a2) {
+        Pair<Integer, Integer>[] res = new Pair[a1.length];
+        for (int i = 0; i < a1.length; i++) {
+            res[i] = new Pair<Integer, Integer>(a1[i], a2[i]);
+        }
+        return res;
     }
 
     @Test
@@ -275,5 +286,33 @@ public class TestSearch {
             makeList(new double[] {1,   2,  21,  22, 23, 3,  24,  25,  26, 4, 5}),
             0, 10, 100, 20, 3
         ));
+    }
+
+
+    /* SEARCH MULTI-CONTINUITY WITHIN RANGE */
+
+    @Test
+    public void multiSimple() {
+        assertArrayEquals(
+            zipTogether(new int[] {1}, new int[] {4}),
+            Search.searchMultiContinuityWithinRange(
+                makeList(new double[] {0, 21, 22, 23, 24, 100, 1}),
+                0, 6, 20.0, 30.0, 3
+            )
+        );
+    }
+
+    @Test
+    public void multiTwoEasy() {
+        assertArrayEquals(
+            new Pair[] {
+                new Pair(1, 4),
+                new Pair(6, 10)
+            },
+            Search.searchMultiContinuityWithinRange(
+                makeList(new double[] {1, 21, 22, 23, 24, 2, 25, 26, 27, 28, 29, 3}),
+                0, 11, 20, 30, 3
+            )
+        );
     }
 }

@@ -1,5 +1,6 @@
 
 import java.util.List;
+import java.util.ArrayList;
 import java.util.TreeSet;
 
 public class Search {
@@ -84,5 +85,48 @@ public class Search {
             indexBegin = Math.max(res1, res2);
 
         } while (true);
+    }
+
+    public static Pair<Integer, Integer>[] searchMultiContinuityWithinRange(
+        List<Double> data,
+        int indexBegin,
+        int indexEnd,
+        double thresholdLo,
+        double thresholdHi,
+        int winLength
+    ) {
+        ArrayList<Pair<Integer, Integer>> res = new ArrayList();
+        if (indexEnd - indexBegin < winLength - 1) {
+            return toArray(res);
+        }
+
+        boolean inPotentialWinner = false;
+        int startOfWinner = -1;
+
+        for (int i = indexBegin; i <= indexEnd; i++) {
+            if (inPotentialWinner) {
+                if (data.get(i) < thresholdLo || data.get(i) > thresholdHi) {
+                    if (i - startOfWinner >= winLength) {
+                        res.add(new Pair<Integer, Integer>(startOfWinner, i-1));
+                    }
+                    inPotentialWinner = false;
+                }
+            } else {
+                if (data.get(i) > thresholdLo && data.get(i) < thresholdHi) {
+                    inPotentialWinner = true;
+                    startOfWinner = i;
+                }
+            }
+        }
+
+        return toArray(res);
+    }
+
+    private static Pair<Integer, Integer>[] toArray(List list) {
+        Pair<Integer, Integer>[] res = new Pair[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            res[i] = (Pair<Integer, Integer>) list.get(i);
+        }
+        return res;
     }
 }
