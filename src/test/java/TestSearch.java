@@ -315,4 +315,26 @@ public class TestSearch {
             )
         );
     }
+
+    @Test
+    public void multiNoWinners() {
+        assertArrayEquals(
+            new Pair[] {},
+            Search.searchMultiContinuityWithinRange(
+                makeList(new double[] {0,1,2,3,4,5,6,7,8,9}),
+                0, 9, 20, 30, 3
+            )
+        );
+    }
+
+    @Test
+    public void multiTooShortWindow() {
+        assertArrayEquals(
+            new Pair[] {new Pair(5, 8)},
+            Search.searchMultiContinuityWithinRange(
+                makeList(new double[] {0, 21, 22, 3, 4, 25, 26, 27, 28, 9}),
+                0, 9, 20, 30, 3
+            )
+        );
+    }
 }
