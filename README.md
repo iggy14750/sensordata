@@ -231,10 +231,126 @@ Both give us O(n log n) processing time, but we have a few tradeoffs to consider
 </table>
 
 
-## Conclusion
+## Linear Flag
 
-For these reasons, I believe the overall simplest without giving any performance is the Binary Search Tree backed Rolling Minumum.
-This means the data structure used for collecting data will simply be a few arrrays.
-While this is the same as naive, it is the best we can get for data collection on the embedded sensor, which is where every byte and cycle matter.
-Moreover, we have still dramatically reduced the processing time over naive.
-So, in all, I belive this is the best tradoff given the application.
+The simplest, however, is the best.
+Keeping track of the least `winLength` elements may be keeping around too much state.
+Perhaps we only need to know when we are currently *in* a streak of elements greater than `threshold`.
+Moreover, if we knew we were `winLength` elements into such a streak, then we know we had found a winner.
+All this without ever looking back at -- or keeping track of -- any previous elements.
+
+```
+func searchContinuityAboveValue(data, indexBegin, indexEnd, threshold, winLength):
+    bool inPotentialWinner = false
+    int startOfPotentialWinner = -1
+    for i = indexBegin to (indexEnd - winLength) do
+        if inPotentialWinner then
+            if i - startOfPotentialWinner == winLength then
+                return startOfPotentialWinner
+            end
+            if data[i] < threshold then
+                inPotentialWinner = false
+            end
+        else
+            if data[i] > threshold then
+                inPotentialWinner = true
+                startOfPotentialWinner = i
+            end
+        end
+    end
+end
+```
+
+Thus, we have our elusive goal: O(1) insert, O(n) space, **and** O(n) processing on our data.
+Folks, we have a winner.
+
+
+## Abstraction
+
+I said before that I will solve the first problem without regard to others, 
+because at some fundamental level they are the same problem.
+Well, if that's the case, wouldn't we like to only have to write this business logic once, and use it to all of our functions?
+
+There are a few fundamental inputs into this algorithm, which can be described in the following way:
+
+- An **Iterable** data source which holds all of the objects under consideration.
+- A **Predicate** which determines if some datum could be in a winner or not.
+- A **winLength** with the same interpretation as before.
+
+Which these, let's construct our generic algorithm.
+
+```
+func genericSearch(Iterable<T> data, Predicate<T> winner, int winLength):
+    int current = 0
+    bool inWinner = false
+    int winBegin = -1
+    
+    for dataum in data do
+        if inWinner then
+            if current - winBegin == winLength then
+                return winBegin
+            end
+            if not winner(datum) then
+                inWinner = false
+            end
+        else if winner(datum) then
+            inWinner = true
+            winBegin = current
+        end
+        current += 1
+    end
+end
+```
+
+Well, this looks insufficiently generic to deal with all situations on our data, but in fact it is.
+Let's look at what these predicates and iterables could be for each of our problems.
+
+1. Above Value
+    - Our Iterable would iterate over `data[indexBegin..indexEnd]`. Pretty simple.
+    - The Predicate could take `x` as a paramerter and return `x > threshold`.
+2. Back Search, Within Range
+    - `data[indexEnd .. indexBegin]` could be an Iterable. This could be constructed efficiently, without copying our data.
+    - `thresholdLo < x < thresholdHi` could be our Predicate.
+3. Above Value, Two Signals
+    - `zip(data1[begin..end], data2[begin..end])`, where `zip` turns two arrays into one, each element a pair.
+    - Our Predicate would essentially take the pair `(x,y)`, and it could return `x > threshold1 and y > threshold2`.
+4. Multi-Continuity, Within Range
+    - `data[lastWinner..indexEnd]` where `lastWinner` will be explained shortly.
+    - `thresholdLo < x < thresholdHi`.
+
+There is a bit of a difference then between the last function and all the others.
+The others only return an index, while the last returns the beginning and ending indecies of every winning window.
+To accomplish this with our generic function, without making it do unnecessary work for the other users, or making the interface more complicated, we must call it multiple times.
+More responsibility is then on us to find all regions in our dataset, not to mention the ending verices of each.
+
+```
+func searchMultiContinuityWithinRange(data, indexBegin, indexEnd, thresholdLo, thresholdHi, winLength):
+
+    Predicate p(x) = thresholdLo < x < thresholdhi
+    Iterable i = data[indexBegin..indexEnd]
+    List<int> winners
+    
+    while true
+        last = genericSearch(i, p, winLength)
+        if last == -1 then break
+        winners.add(last)
+        i = data[last+winLength..indexEnd]
+    end
+
+    for item in winners do
+        find closing index starting from item+winLength
+    end
+    
+    return winningIndices
+
+end
+```
+
+There is room for optimization here, but this is the idea, and this processing is still clearly O(n).
+
+# Conclusion
+
+With this approach, we can reach our best hope for our metrics, 
+and reduce code duplication by implementing a more generic algorithm.
+We have reduced the demands on our embedded device to the minimum I can think of,
+and have picked a very simple model for data storage and processing.
